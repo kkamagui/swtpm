@@ -78,6 +78,7 @@ matrix:
            CONFIG="--with-openssl --prefix=/usr --enable-test-coverage"
            SUDO="sudo"
            CHECK="check"
+           LIBTPMS_GIT_CHECKOUT="origin/rev159"
       before_script:
       - sudo pip install cpp-coveralls
       - p=$PWD; while [ "$PWD" != "/" ]; do chmod o+x . &>/dev/null ; cd .. ; done; cd $p
@@ -89,6 +90,7 @@ matrix:
           cpp-coveralls --gcov-options '\-lp' -e libtpms
     - env: CFLAGS="-fsanitize=address -g -fno-omit-frame-pointer -fno-sanitize-recover"
            LIBTPMS_CFLAGS="-fsanitize=address -g -fno-omit-frame-pointer -fno-sanitize-recover"
+           LIBTPMS_GIT_CHECKOUT="origin/rev159"
            LIBS="-lasan"
            ASAN_OPTIONS="halt_on_error=1"
            PREFIX="/usr"
@@ -101,6 +103,7 @@ matrix:
     - env: CFLAGS="-fsanitize=address -g -fno-omit-frame-pointer -fno-sanitize-recover"
            LIBTPMS_CFLAGS="-fsanitize=address -g -fno-omit-frame-pointer -fno-sanitize-recover"
            LIBTPMS_CONFIG="--disable-use-openssl-functions"
+           LIBTPMS_GIT_CHECKOUT="origin/rev159"
            LIBS="-lasan"
            ASAN_OPTIONS="halt_on_error=1"
            PREFIX="/usr"
@@ -112,6 +115,7 @@ matrix:
         - echo -e '#!/usr/bin/env bash\nexit 0' > tests/test_parameters
     - env: CFLAGS="-fsanitize=undefined -g -fno-omit-frame-pointer -fno-sanitize-recover"
            LIBTPMS_CFLAGS="-fsanitize=undefined -g -fno-omit-frame-pointer -fno-sanitize-recover"
+           LIBTPMS_GIT_CHECKOUT="origin/rev159"
            LIBS="-lubsan"
            UBSAN_OPTIONS="halt_on_error=1"
            PREFIX="/usr"
@@ -122,7 +126,7 @@ matrix:
            LIBTPMS_CFLAGS="-I/usr/local/opt/openssl/include"
            LIBTPMS_LDFLAGS="-L/usr/local/opt/openssl/lib"
            LIBTPMS_PREFIX="${HOME}"
-           LIBTPMS_GIT_CHECKOUT="origin/stable-0.6.0"
+           LIBTPMS_GIT_CHECKOUT="origin/rev159"
            CFLAGS="-I/usr/local/opt/openssl/include -I${HOME}/include"
            LDFLAGS="-L/usr/local/opt/openssl/lib -L${HOME}/lib"
            PKG_CONFIG_PATH="${HOME}/lib/pkgconfig"
